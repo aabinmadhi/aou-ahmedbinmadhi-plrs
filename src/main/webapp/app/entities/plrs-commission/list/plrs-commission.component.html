@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="PlrsCommissionHeading">
+    <span>Plrs Commissions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-plrs-commission"
+        [routerLink]="['/plrs-commission/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Plrs Commission </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="plrsCommissions?.length === 0">
+    <span>No Plrs Commissions found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="plrsCommissions && plrsCommissions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="commissionRate">
+            <div class="d-flex">
+              <span>Commission Rate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="commissionStartDate">
+            <div class="d-flex">
+              <span>Commission Start Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="commissionEndDate">
+            <div class="d-flex">
+              <span>Commission End Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let plrsCommission of plrsCommissions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/plrs-commission', plrsCommission.id, 'view']">{{ plrsCommission.id }}</a>
+          </td>
+          <td>{{ plrsCommission.commissionRate }}</td>
+          <td>{{ plrsCommission.commissionStartDate | formatMediumDatetime }}</td>
+          <td>{{ plrsCommission.commissionEndDate | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/plrs-commission', plrsCommission.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/plrs-commission', plrsCommission.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(plrsCommission)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

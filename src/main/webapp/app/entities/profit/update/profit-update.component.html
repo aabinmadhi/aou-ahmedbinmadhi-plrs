@@ -1,0 +1,119 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-profit-heading" data-cy="ProfitCreateUpdateHeading">Create or edit a Profit</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userProfitAmountPerBooking">User Profit Amount Per Booking</label>
+          <input
+            type="number"
+            class="form-control"
+            name="userProfitAmountPerBooking"
+            id="field_userProfitAmountPerBooking"
+            data-cy="userProfitAmountPerBooking"
+            formControlName="userProfitAmountPerBooking"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_plrsProfitAmountPerBooking">Plrs Profit Amount Per Booking</label>
+          <input
+            type="number"
+            class="form-control"
+            name="plrsProfitAmountPerBooking"
+            id="field_plrsProfitAmountPerBooking"
+            data-cy="plrsProfitAmountPerBooking"
+            formControlName="plrsProfitAmountPerBooking"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userProfitAmountPerLocationService">User Profit Amount Per Location Service</label>
+          <input
+            type="number"
+            class="form-control"
+            name="userProfitAmountPerLocationService"
+            id="field_userProfitAmountPerLocationService"
+            data-cy="userProfitAmountPerLocationService"
+            formControlName="userProfitAmountPerLocationService"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_plrsProfitAmountPerLocationService">Plrs Profit Amount Per Location Service</label>
+          <input
+            type="number"
+            class="form-control"
+            name="plrsProfitAmountPerLocationService"
+            id="field_plrsProfitAmountPerLocationService"
+            data-cy="plrsProfitAmountPerLocationService"
+            formControlName="plrsProfitAmountPerLocationService"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userTotalProfit">User Total Profit</label>
+          <input
+            type="number"
+            class="form-control"
+            name="userTotalProfit"
+            id="field_userTotalProfit"
+            data-cy="userTotalProfit"
+            formControlName="userTotalProfit"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_plrsTotalProfit">Plrs Total Profit</label>
+          <input
+            type="number"
+            class="form-control"
+            name="plrsTotalProfit"
+            id="field_plrsTotalProfit"
+            data-cy="plrsTotalProfit"
+            formControlName="plrsTotalProfit"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_booking">Booking</label>
+          <select
+            class="form-control"
+            id="field_booking"
+            data-cy="booking"
+            name="booking"
+            formControlName="booking"
+            [compareWith]="compareBooking"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="bookingOption" *ngFor="let bookingOption of bookingsCollection">{{ bookingOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

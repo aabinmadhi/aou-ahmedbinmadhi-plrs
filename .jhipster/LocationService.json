@@ -1,0 +1,99 @@
+{
+  "applications": "*",
+  "changelogDate": "20230310112638",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "location_service",
+  "fields": [
+    {
+      "fieldName": "locationServiceTitle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "locationServiceImage",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mapCoordinates",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "locationDiscription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "capacity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "hourlyRate",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "whiteBoard",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "coffee",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "wiFi",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "monitor",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "pcOrLaptop",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "printer",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "City",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "RIYADH,JEDDAH,MECCA,MEDINA,DAMMAM"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "LocationService",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "booking",
+      "otherEntityRelationshipName": "locationService",
+      "relationshipName": "booking",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "timeSlot",
+      "otherEntityRelationshipName": "locationService",
+      "relationshipName": "timeSlot",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "internalUser",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
