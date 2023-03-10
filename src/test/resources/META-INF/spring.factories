@@ -1,0 +1,1 @@
+org.springframework.test.context.ContextCustomizerFactory = aou.ahmedbinmadhi.plrs.config.TestContainersSpringContextCustomizerFactory
