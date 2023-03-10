@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="profit">
+      <h2 data-cy="profitDetailsHeading"><span>Profit</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ profit.id }}</span>
+        </dd>
+        <dt><span>User Profit Amount Per Booking</span></dt>
+        <dd>
+          <span>{{ profit.userProfitAmountPerBooking }}</span>
+        </dd>
+        <dt><span>Plrs Profit Amount Per Booking</span></dt>
+        <dd>
+          <span>{{ profit.plrsProfitAmountPerBooking }}</span>
+        </dd>
+        <dt><span>User Profit Amount Per Location Service</span></dt>
+        <dd>
+          <span>{{ profit.userProfitAmountPerLocationService }}</span>
+        </dd>
+        <dt><span>Plrs Profit Amount Per Location Service</span></dt>
+        <dd>
+          <span>{{ profit.plrsProfitAmountPerLocationService }}</span>
+        </dd>
+        <dt><span>User Total Profit</span></dt>
+        <dd>
+          <span>{{ profit.userTotalProfit }}</span>
+        </dd>
+        <dt><span>Plrs Total Profit</span></dt>
+        <dd>
+          <span>{{ profit.plrsTotalProfit }}</span>
+        </dd>
+        <dt><span>Booking</span></dt>
+        <dd>
+          <div *ngIf="profit.booking">
+            <a [routerLink]="['/booking', profit.booking.id, 'view']">{{ profit.booking.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/profit', profit.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<div>
+  <h2 id="page-heading" data-cy="ProfitHeading">
+    <span>Profits</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-profit"
+        [routerLink]="['/profit/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Profit </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="profits?.length === 0">
+    <span>No Profits found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="profits && profits.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="userProfitAmountPerBooking">
+            <div class="d-flex">
+              <span>User Profit Amount Per Booking</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="plrsProfitAmountPerBooking">
+            <div class="d-flex">
+              <span>Plrs Profit Amount Per Booking</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="userProfitAmountPerLocationService">
+            <div class="d-flex">
+              <span>User Profit Amount Per Location Service</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="plrsProfitAmountPerLocationService">
+            <div class="d-flex">
+              <span>Plrs Profit Amount Per Location Service</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="userTotalProfit">
+            <div class="d-flex">
+              <span>User Total Profit</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="plrsTotalProfit">
+            <div class="d-flex">
+              <span>Plrs Total Profit</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="booking.id">
+            <div class="d-flex">
+              <span>Booking</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profit of profits; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/profit', profit.id, 'view']">{{ profit.id }}</a>
+          </td>
+          <td>{{ profit.userProfitAmountPerBooking }}</td>
+          <td>{{ profit.plrsProfitAmountPerBooking }}</td>
+          <td>{{ profit.userProfitAmountPerLocationService }}</td>
+          <td>{{ profit.plrsProfitAmountPerLocationService }}</td>
+          <td>{{ profit.userTotalProfit }}</td>
+          <td>{{ profit.plrsTotalProfit }}</td>
+          <td>
+            <div *ngIf="profit.booking">
+              <a [routerLink]="['/booking', profit.booking.id, 'view']">{{ profit.booking.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/profit', profit.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/profit', profit.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(profit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
