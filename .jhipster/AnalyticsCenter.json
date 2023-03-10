@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20230310113048",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "analytics_center",
+  "fields": [
+    {
+      "fieldName": "totalRevenuePerLProvider",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "numberOfLocations",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "countOfBookingPerLocationService",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalRevenuePerLocationService",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AnalyticsCenter",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,93 @@
+
+
+
+enum City {
+RIYADH,
+JEDDAH,
+MECCA,
+MEDINA,
+DAMMAM
+}
+
+@dto(mapstruct)
+@paginate(pagination)
+@service(serviceClass)
+entity LocationService {
+locationServiceTitle String required
+locationServiceImage ImageBlob required
+mapCoordinates String 
+locationDiscription String
+capacity Integer required
+hourlyRate Double required
+whiteBoard Boolean required
+coffee Boolean required
+wiFi Boolean required
+monitor Boolean required
+pcOrLaptop Boolean required
+printer Boolean required
+city City required
+}
+
+@dto(mapstruct)
+@service(serviceClass)
+entity Booking {
+startTime ZonedDateTime required
+endTime ZonedDateTime required
+totalPrice Double
+isPaid Boolean
+}
+
+@dto(mapstruct)
+@service(serviceClass)
+entity PlrsCommission {
+commissionRate BigDecimal required min(0) max(100)
+commissionStartDate ZonedDateTime
+commissionEndDate ZonedDateTime
+}
+
+@dto(mapstruct)
+@service(serviceClass)
+entity TimeSlot {
+startTime ZonedDateTime required
+endTime ZonedDateTime required
+isDeleted Boolean
+}
+
+@dto(mapstruct)
+@service(serviceClass)
+entity Profit {
+userProfitAmountPerBooking Double
+plrsProfitAmountPerBooking Double
+userProfitAmountPerLocationService Double
+plrsProfitAmountPerLocationService Double
+userTotalProfit Double
+plrsTotalProfit Double
+}
+
+@dto(mapstruct)
+@service(serviceClass)
+entity AnalyticsCenter{
+totalRevenuePerLProvider Double
+numberOfLocations Double
+countOfBookingPerLocationService Double
+totalRevenuePerLocationService Double
+}
+
+relationship OneToMany {
+  LocationService{booking} to Booking{locationService}
+}
+
+relationship OneToOne {
+  Profit{booking} to Booking{profit}
+}
+
+relationship OneToMany {
+  LocationService{timeSlot} to TimeSlot{locationService}
+}
+
+relationship ManyToOne {
+  LocationService{internalUser} to User
+  Booking{internalUser} to User
+  
+}
+    
