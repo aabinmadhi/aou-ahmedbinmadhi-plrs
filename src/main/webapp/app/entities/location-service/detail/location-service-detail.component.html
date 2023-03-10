@@ -1,0 +1,93 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="locationService">
+      <h2 data-cy="locationServiceDetailsHeading"><span>Location Service</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ locationService.id }}</span>
+        </dd>
+        <dt><span>Location Service Title</span></dt>
+        <dd>
+          <span>{{ locationService.locationServiceTitle }}</span>
+        </dd>
+        <dt><span>Location Service Image</span></dt>
+        <dd>
+          <div *ngIf="locationService.locationServiceImage">
+            <a (click)="openFile(locationService.locationServiceImage, locationService.locationServiceImageContentType)">
+              <img
+                [src]="'data:' + locationService.locationServiceImageContentType + ';base64,' + locationService.locationServiceImage"
+                style="max-width: 100%"
+                alt="locationService image"
+              />
+            </a>
+            {{ locationService.locationServiceImageContentType }}, {{ byteSize(locationService.locationServiceImage) }}
+          </div>
+        </dd>
+        <dt><span>Map Coordinates</span></dt>
+        <dd>
+          <span>{{ locationService.mapCoordinates }}</span>
+        </dd>
+        <dt><span>Location Discription</span></dt>
+        <dd>
+          <span>{{ locationService.locationDiscription }}</span>
+        </dd>
+        <dt><span>Capacity</span></dt>
+        <dd>
+          <span>{{ locationService.capacity }}</span>
+        </dd>
+        <dt><span>Hourly Rate</span></dt>
+        <dd>
+          <span>{{ locationService.hourlyRate }}</span>
+        </dd>
+        <dt><span>White Board</span></dt>
+        <dd>
+          <span>{{ locationService.whiteBoard }}</span>
+        </dd>
+        <dt><span>Coffee</span></dt>
+        <dd>
+          <span>{{ locationService.coffee }}</span>
+        </dd>
+        <dt><span>Wi Fi</span></dt>
+        <dd>
+          <span>{{ locationService.wiFi }}</span>
+        </dd>
+        <dt><span>Monitor</span></dt>
+        <dd>
+          <span>{{ locationService.monitor }}</span>
+        </dd>
+        <dt><span>Pc Or Laptop</span></dt>
+        <dd>
+          <span>{{ locationService.pcOrLaptop }}</span>
+        </dd>
+        <dt><span>Printer</span></dt>
+        <dd>
+          <span>{{ locationService.printer }}</span>
+        </dd>
+        <dt><span>City</span></dt>
+        <dd>
+          <span>{{ locationService.city }}</span>
+        </dd>
+        <dt><span>Internal User</span></dt>
+        <dd>
+          <span>{{ locationService.internalUser?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/location-service', locationService.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

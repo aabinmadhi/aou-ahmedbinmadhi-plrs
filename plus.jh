@@ -1,0 +1,85 @@
+
+
+
+enum City {
+RIYADH,
+JEDDAH,
+MECCA,
+MEDINA,
+DAMMAM
+}
+
+entity LocationService {
+locationServiceTitle String required
+locationServiceImage ImageBlob required
+mapCoordinates String 
+locationDiscription String
+capacity Integer required
+hourlyRate Double required
+whiteBoard Boolean required
+coffee Boolean required
+wiFi Boolean required
+monitor Boolean required
+pcOrLaptop Boolean required
+printer Boolean required
+city City required
+}
+
+
+entity Booking {
+startTime ZonedDateTime required
+endTime ZonedDateTime required
+totalPrice Double
+isPaid Boolean
+}
+
+entity PlrsCommission {
+commissionRate BigDecimal required min(0) max(100)
+commissionStartDate ZonedDateTime
+commissionEndDate ZonedDateTime
+}
+
+
+entity TimeSlot {
+startTime ZonedDateTime required
+endTime ZonedDateTime required
+isDeleted Boolean
+}
+
+
+entity Profit {
+userProfitAmountPerBooking Double
+plrsProfitAmountPerBooking Double
+userProfitAmountPerLocationService Double
+plrsProfitAmountPerLocationService Double
+userTotalProfit Double
+plrsTotalProfit Double
+}
+
+
+entity AnalyticsCenter{
+totalRevenuePerLProvider Double
+numberOfLocations Double
+countOfBookingPerLocationService Double
+totalRevenuePerLocationService Double
+}
+
+
+relationship OneToMany {
+  LocationService{booking} to Booking{locationService}
+}
+
+relationship OneToOne {
+  Profit{booking} to Booking{profit}
+}
+
+relationship OneToMany {
+  LocationService{timeSlot} to TimeSlot{locationService}
+}
+
+relationship ManyToOne {
+  LocationService{internalUser} to User
+  Booking{internalUser} to User
+  
+}
+    

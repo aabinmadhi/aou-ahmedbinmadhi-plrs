@@ -1,0 +1,195 @@
+<div>
+  <h2 id="page-heading" data-cy="LocationServiceHeading">
+    <span>Location Services</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-location-service"
+        [routerLink]="['/location-service/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Location Service </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="locationServices?.length === 0">
+    <span>No Location Services found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="locationServices && locationServices.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="locationServiceTitle">
+            <div class="d-flex">
+              <span>Location Service Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="locationServiceImage">
+            <div class="d-flex">
+              <span>Location Service Image</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="mapCoordinates">
+            <div class="d-flex">
+              <span>Map Coordinates</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="locationDiscription">
+            <div class="d-flex">
+              <span>Location Discription</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="capacity">
+            <div class="d-flex">
+              <span>Capacity</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="hourlyRate">
+            <div class="d-flex">
+              <span>Hourly Rate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="whiteBoard">
+            <div class="d-flex">
+              <span>White Board</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="coffee">
+            <div class="d-flex">
+              <span>Coffee</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="wiFi">
+            <div class="d-flex">
+              <span>Wi Fi</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="monitor">
+            <div class="d-flex">
+              <span>Monitor</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="pcOrLaptop">
+            <div class="d-flex">
+              <span>Pc Or Laptop</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="printer">
+            <div class="d-flex">
+              <span>Printer</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="city">
+            <div class="d-flex">
+              <span>City</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="internalUser.id">
+            <div class="d-flex">
+              <span>Internal User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let locationService of locationServices; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/location-service', locationService.id, 'view']">{{ locationService.id }}</a>
+          </td>
+          <td>{{ locationService.locationServiceTitle }}</td>
+          <td>
+            <a
+              *ngIf="locationService.locationServiceImage"
+              (click)="openFile(locationService.locationServiceImage, locationService.locationServiceImageContentType)"
+            >
+              <img
+                [src]="'data:' + locationService.locationServiceImageContentType + ';base64,' + locationService.locationServiceImage"
+                style="max-height: 30px"
+                alt="locationService image"
+              />
+            </a>
+            <span *ngIf="locationService.locationServiceImage"
+              >{{ locationService.locationServiceImageContentType }}, {{ byteSize(locationService.locationServiceImage) }}</span
+            >
+          </td>
+          <td>{{ locationService.mapCoordinates }}</td>
+          <td>{{ locationService.locationDiscription }}</td>
+          <td>{{ locationService.capacity }}</td>
+          <td>{{ locationService.hourlyRate }}</td>
+          <td>{{ locationService.whiteBoard }}</td>
+          <td>{{ locationService.coffee }}</td>
+          <td>{{ locationService.wiFi }}</td>
+          <td>{{ locationService.monitor }}</td>
+          <td>{{ locationService.pcOrLaptop }}</td>
+          <td>{{ locationService.printer }}</td>
+          <td>{{ locationService.city }}</td>
+          <td>
+            {{ locationService.internalUser?.id }}
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/location-service', locationService.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/location-service', locationService.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(locationService)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
