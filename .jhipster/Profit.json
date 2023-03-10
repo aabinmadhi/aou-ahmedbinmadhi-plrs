@@ -1,0 +1,48 @@
+{
+  "applications": "*",
+  "changelogDate": "20230310112642",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "profit",
+  "fields": [
+    {
+      "fieldName": "userProfitAmountPerBooking",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "plrsProfitAmountPerBooking",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "userProfitAmountPerLocationService",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "plrsProfitAmountPerLocationService",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "userTotalProfit",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "plrsTotalProfit",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Profit",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "booking",
+      "otherEntityRelationshipName": "profit",
+      "ownerSide": true,
+      "relationshipName": "booking",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20230310112640",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "plrs_commission",
+  "fields": [
+    {
+      "fieldName": "commissionRate",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMax": "100",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "commissionStartDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "commissionEndDate",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PlrsCommission",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}
