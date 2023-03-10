@@ -1,0 +1,254 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-location-service-heading" data-cy="LocationServiceCreateUpdateHeading">Create or edit a Location Service</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_locationServiceTitle">Location Service Title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="locationServiceTitle"
+            id="field_locationServiceTitle"
+            data-cy="locationServiceTitle"
+            formControlName="locationServiceTitle"
+          />
+          <div
+            *ngIf="
+              editForm.get('locationServiceTitle')!.invalid &&
+              (editForm.get('locationServiceTitle')!.dirty || editForm.get('locationServiceTitle')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('locationServiceTitle')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_locationServiceImage">Location Service Image</label>
+          <div>
+            <img
+              [src]="
+                'data:' + editForm.get('locationServiceImageContentType')!.value + ';base64,' + editForm.get('locationServiceImage')!.value
+              "
+              style="max-height: 100px"
+              *ngIf="editForm.get('locationServiceImage')!.value"
+              alt="locationService image"
+            />
+            <div *ngIf="editForm.get('locationServiceImage')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('locationServiceImageContentType')!.value }},
+                {{ byteSize(editForm.get('locationServiceImage')!.value!) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('locationServiceImage', 'locationServiceImageContentType', 'file_locationServiceImage')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_locationServiceImage"
+              data-cy="locationServiceImage"
+              (change)="setFileData($event, 'locationServiceImage', true)"
+              accept="image/*"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="locationServiceImage"
+            id="field_locationServiceImage"
+            data-cy="locationServiceImage"
+            formControlName="locationServiceImage"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="locationServiceImageContentType"
+            id="field_locationServiceImageContentType"
+            formControlName="locationServiceImageContentType"
+          />
+          <div
+            *ngIf="
+              editForm.get('locationServiceImage')!.invalid &&
+              (editForm.get('locationServiceImage')!.dirty || editForm.get('locationServiceImage')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('locationServiceImage')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_mapCoordinates">Map Coordinates</label>
+          <input
+            type="text"
+            class="form-control"
+            name="mapCoordinates"
+            id="field_mapCoordinates"
+            data-cy="mapCoordinates"
+            formControlName="mapCoordinates"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_locationDiscription">Location Discription</label>
+          <input
+            type="text"
+            class="form-control"
+            name="locationDiscription"
+            id="field_locationDiscription"
+            data-cy="locationDiscription"
+            formControlName="locationDiscription"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_capacity">Capacity</label>
+          <input type="number" class="form-control" name="capacity" id="field_capacity" data-cy="capacity" formControlName="capacity" />
+          <div *ngIf="editForm.get('capacity')!.invalid && (editForm.get('capacity')!.dirty || editForm.get('capacity')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('capacity')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('capacity')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_hourlyRate">Hourly Rate</label>
+          <input
+            type="number"
+            class="form-control"
+            name="hourlyRate"
+            id="field_hourlyRate"
+            data-cy="hourlyRate"
+            formControlName="hourlyRate"
+          />
+          <div *ngIf="editForm.get('hourlyRate')!.invalid && (editForm.get('hourlyRate')!.dirty || editForm.get('hourlyRate')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('hourlyRate')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('hourlyRate')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_whiteBoard">White Board</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="whiteBoard"
+            id="field_whiteBoard"
+            data-cy="whiteBoard"
+            formControlName="whiteBoard"
+          />
+          <div *ngIf="editForm.get('whiteBoard')!.invalid && (editForm.get('whiteBoard')!.dirty || editForm.get('whiteBoard')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('whiteBoard')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_coffee">Coffee</label>
+          <input type="checkbox" class="form-check" name="coffee" id="field_coffee" data-cy="coffee" formControlName="coffee" />
+          <div *ngIf="editForm.get('coffee')!.invalid && (editForm.get('coffee')!.dirty || editForm.get('coffee')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('coffee')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_wiFi">Wi Fi</label>
+          <input type="checkbox" class="form-check" name="wiFi" id="field_wiFi" data-cy="wiFi" formControlName="wiFi" />
+          <div *ngIf="editForm.get('wiFi')!.invalid && (editForm.get('wiFi')!.dirty || editForm.get('wiFi')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('wiFi')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_monitor">Monitor</label>
+          <input type="checkbox" class="form-check" name="monitor" id="field_monitor" data-cy="monitor" formControlName="monitor" />
+          <div *ngIf="editForm.get('monitor')!.invalid && (editForm.get('monitor')!.dirty || editForm.get('monitor')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('monitor')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_pcOrLaptop">Pc Or Laptop</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="pcOrLaptop"
+            id="field_pcOrLaptop"
+            data-cy="pcOrLaptop"
+            formControlName="pcOrLaptop"
+          />
+          <div *ngIf="editForm.get('pcOrLaptop')!.invalid && (editForm.get('pcOrLaptop')!.dirty || editForm.get('pcOrLaptop')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('pcOrLaptop')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_printer">Printer</label>
+          <input type="checkbox" class="form-check" name="printer" id="field_printer" data-cy="printer" formControlName="printer" />
+          <div *ngIf="editForm.get('printer')!.invalid && (editForm.get('printer')!.dirty || editForm.get('printer')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('printer')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_city">City</label>
+          <select class="form-control" name="city" formControlName="city" id="field_city" data-cy="city">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let city of cityValues" [value]="city">city</option>
+          </select>
+          <div *ngIf="editForm.get('city')!.invalid && (editForm.get('city')!.dirty || editForm.get('city')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('city')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_internalUser">Internal User</label>
+          <select
+            class="form-control"
+            id="field_internalUser"
+            data-cy="internalUser"
+            name="internalUser"
+            formControlName="internalUser"
+            [compareWith]="compareUser"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

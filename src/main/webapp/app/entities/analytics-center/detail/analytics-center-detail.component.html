@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="analyticsCenter">
+      <h2 data-cy="analyticsCenterDetailsHeading"><span>Analytics Center</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ analyticsCenter.id }}</span>
+        </dd>
+        <dt><span>Total Revenue Per L Provider</span></dt>
+        <dd>
+          <span>{{ analyticsCenter.totalRevenuePerLProvider }}</span>
+        </dd>
+        <dt><span>Number Of Locations</span></dt>
+        <dd>
+          <span>{{ analyticsCenter.numberOfLocations }}</span>
+        </dd>
+        <dt><span>Count Of Booking Per Location Service</span></dt>
+        <dd>
+          <span>{{ analyticsCenter.countOfBookingPerLocationService }}</span>
+        </dd>
+        <dt><span>Total Revenue Per Location Service</span></dt>
+        <dd>
+          <span>{{ analyticsCenter.totalRevenuePerLocationService }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/analytics-center', analyticsCenter.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

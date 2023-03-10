@@ -1,0 +1,53 @@
+{
+  "applications": "*",
+  "changelogDate": "20230310113044",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "booking",
+  "fields": [
+    {
+      "fieldName": "startTime",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endTime",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "totalPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "isPaid",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Booking",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "internalUser",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "profit",
+      "otherEntityRelationshipName": "booking",
+      "ownerSide": false,
+      "relationshipName": "profit",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "locationService",
+      "otherEntityRelationshipName": "booking",
+      "relationshipName": "locationService",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
